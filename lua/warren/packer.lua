@@ -89,5 +89,9 @@ return require('packer').startup(function(use)
                 vim.g.maplocalleader = " "
             end
         }
+
+        use('google/maktaba')
+        use('google/codefmt')
+        use('google/glaive')
 	end)
 
