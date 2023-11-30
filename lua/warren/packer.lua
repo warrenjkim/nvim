@@ -90,8 +90,9 @@ return require('packer').startup(function(use)
             end
         }
 
-        use('google/maktaba')
-        use('google/codefmt')
-        use('google/glaive')
+        use('google/vim-maktaba')
+        use('google/vim-codefmt')
+        use('google/vim-glaive')
+        use('tpope/vim-commentary')
 	end)
 
