@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/warren/.cache/nvim/packer_hererocks/2.1.1700008891/share/lua/5.1/?.lua;/Users/warren/.cache/nvim/packer_hererocks/2.1.1700008891/share/lua/5.1/?/init.lua;/Users/warren/.cache/nvim/packer_hererocks/2.1.1700008891/lib/luarocks/rocks-5.1/?.lua;/Users/warren/.cache/nvim/packer_hererocks/2.1.1700008891/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/warren/.cache/nvim/packer_hererocks/2.1.1700008891/lib/lua/5.1/?.so"
+local package_path_str = "/Users/warren/.cache/nvim/packer_hererocks/2.1.1703358377/share/lua/5.1/?.lua;/Users/warren/.cache/nvim/packer_hererocks/2.1.1703358377/share/lua/5.1/?/init.lua;/Users/warren/.cache/nvim/packer_hererocks/2.1.1703358377/lib/luarocks/rocks-5.1/?.lua;/Users/warren/.cache/nvim/packer_hererocks/2.1.1703358377/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/Users/warren/.cache/nvim/packer_hererocks/2.1.1703358377/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -94,6 +94,11 @@ _G.packer_plugins = {
     path = "/Users/warren/.local/share/nvim/site/pack/packer/start/copilot.vim",
     url = "https://github.com/github/copilot.vim"
   },
+  glaive = {
+    loaded = true,
+    path = "/Users/warren/.local/share/nvim/site/pack/packer/start/glaive",
+    url = "https://github.com/google/glaive"
+  },
   ["gruvbox.nvim"] = {
     loaded = true,
     path = "/Users/warren/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
@@ -108,6 +113,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/warren/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
     url = "https://github.com/VonHeikemen/lsp-zero.nvim"
+  },
+  maktaba = {
+    loaded = true,
+    path = "/Users/warren/.local/share/nvim/site/pack/packer/start/maktaba",
+    url = "https://github.com/google/maktaba"
   },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
@@ -180,13 +190,18 @@ _G.packer_plugins = {
     path = "/Users/warren/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
   },
+  ["vim-commentary"] = {
+    loaded = true,
+    path = "/Users/warren/.local/share/nvim/site/pack/packer/start/vim-commentary",
+    url = "https://github.com/tpope/vim-commentary"
+  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/Users/warren/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
   },
   vimtex = {
-    config = { "\27LJ\2\n€\2\0\0\3\0\15\0\0296\0\0\0009\0\1\0'\2\2\0B\0\2\0016\0\0\0009\0\1\0'\2\3\0B\0\2\0016\0\0\0009\0\4\0'\1\6\0=\1\5\0006\0\0\0009\0\4\0'\1\b\0=\1\a\0006\0\0\0009\0\4\0'\1\n\0=\1\t\0006\0\0\0009\0\4\0'\1\f\0=\1\v\0006\0\0\0009\0\4\0'\1\14\0=\1\r\0K\0\1\0\6 \19maplocalleader\flatexmk\27vimtex_compiler_method%--unique file:@pdf#src:@line@tex vimtex_view_general_options\vokular\31vimtex_view_general_viewer\fzathura\23vimtex_view_method\6g\20 syntax enable   filetype plugin indent on \bcmd\bvim\0" },
+    config = { "\27LJ\2\n’\2\0\0\3\0\14\0\0296\0\0\0009\0\1\0'\2\2\0B\0\2\0016\0\0\0009\0\1\0'\2\3\0B\0\2\0016\0\0\0009\0\4\0'\1\6\0=\1\5\0006\0\0\0009\0\4\0'\1\6\0=\1\a\0006\0\0\0009\0\4\0'\1\t\0=\1\b\0006\0\0\0009\0\4\0'\1\v\0=\1\n\0006\0\0\0009\0\4\0'\1\r\0=\1\f\0K\0\1\0\6 \19maplocalleader\rpdflatex\27vimtex_compiler_method%--unique file:@pdf#src:@line@tex vimtex_view_general_options\31vimtex_view_general_viewer\fzathura\23vimtex_view_method\6g\20 syntax enable   filetype plugin indent on \bcmd\bvim\0" },
     loaded = true,
     path = "/Users/warren/.local/share/nvim/site/pack/packer/start/vimtex",
     url = "https://github.com/lervag/vimtex"
@@ -201,7 +216,7 @@ _G.packer_plugins = {
 time([[Defining packer_plugins]], false)
 -- Config for: vimtex
 time([[Config for vimtex]], true)
-try_loadstring("\27LJ\2\n€\2\0\0\3\0\15\0\0296\0\0\0009\0\1\0'\2\2\0B\0\2\0016\0\0\0009\0\1\0'\2\3\0B\0\2\0016\0\0\0009\0\4\0'\1\6\0=\1\5\0006\0\0\0009\0\4\0'\1\b\0=\1\a\0006\0\0\0009\0\4\0'\1\n\0=\1\t\0006\0\0\0009\0\4\0'\1\f\0=\1\v\0006\0\0\0009\0\4\0'\1\14\0=\1\r\0K\0\1\0\6 \19maplocalleader\flatexmk\27vimtex_compiler_method%--unique file:@pdf#src:@line@tex vimtex_view_general_options\vokular\31vimtex_view_general_viewer\fzathura\23vimtex_view_method\6g\20 syntax enable   filetype plugin indent on \bcmd\bvim\0", "config", "vimtex")
+try_loadstring("\27LJ\2\n’\2\0\0\3\0\14\0\0296\0\0\0009\0\1\0'\2\2\0B\0\2\0016\0\0\0009\0\1\0'\2\3\0B\0\2\0016\0\0\0009\0\4\0'\1\6\0=\1\5\0006\0\0\0009\0\4\0'\1\6\0=\1\a\0006\0\0\0009\0\4\0'\1\t\0=\1\b\0006\0\0\0009\0\4\0'\1\v\0=\1\n\0006\0\0\0009\0\4\0'\1\r\0=\1\f\0K\0\1\0\6 \19maplocalleader\rpdflatex\27vimtex_compiler_method%--unique file:@pdf#src:@line@tex vimtex_view_general_options\31vimtex_view_general_viewer\fzathura\23vimtex_view_method\6g\20 syntax enable   filetype plugin indent on \bcmd\bvim\0", "config", "vimtex")
 time([[Config for vimtex]], false)
 -- Config for: trouble.nvim
 time([[Config for trouble.nvim]], true)

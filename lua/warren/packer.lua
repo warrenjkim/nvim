@@ -79,20 +79,19 @@ return require('packer').startup(function(use)
                 vim.g.vimtex_view_method = 'zathura'
 
                 -- Or with a generic interface:
-                vim.g.vimtex_view_general_viewer = 'okular'
+                vim.g.vimtex_view_general_viewer = 'zathura'
                 vim.g.vimtex_view_general_options = '--unique file:@pdf#src:@line@tex'
 
                 -- Compiler options
-                vim.g.vimtex_compiler_method = 'latexmk'
+                vim.g.vimtex_compiler_method = 'pdflatex'
 
                 -- Set localleader for VimTeX mappings
                 vim.g.maplocalleader = " "
             end
         }
 
-        use('google/vim-maktaba')
-        use('google/vim-codefmt')
-        use('google/vim-glaive')
+        use('google/maktaba')
+        use('google/glaive')
         use('tpope/vim-commentary')
 	end)
 
