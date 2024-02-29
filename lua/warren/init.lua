@@ -54,3 +54,4 @@ autocmd('LspAttach', {
 
 vim.o.background = "dark"
 vim.cmd([[colorscheme gruvbox]])
+vim.cmd([[au BufRead,BufNewFile *.tmpl set filetype=html]])
