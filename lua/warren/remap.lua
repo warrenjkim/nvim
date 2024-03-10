@@ -44,3 +44,12 @@ vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd([[so]])
 end)
 
+
+-- tabs
+vim.keymap.set("n", "gt", ":tabnew<CR>", { silent = true })
+vim.keymap.set("n", "gp", ":tabnext<CR>", { silent = true })
+vim.keymap.set("n", "<leader>1", ":tabnext 1<CR>", { silent = true })
+vim.keymap.set("n", "<leader>2", ":tabnext 2<CR>", { silent = true })
+vim.keymap.set("n", "<leader>3", ":tabnext 3<CR>", { silent = true })
+vim.keymap.set("n", "<leader>4", ":tabnext 4<CR>", { silent = true })
+vim.keymap.set("n", "<leader>5", ":tabnext 5<CR>", { silent = true })

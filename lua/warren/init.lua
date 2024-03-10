@@ -1,6 +1,7 @@
 require("warren.set")
 require("warren.remap")
 require("warren.lazy_init")
+require("warren.statusline")
 
 local augroup = vim.api.nvim_create_augroup
 local WarrenGroup = augroup("Warren", {})
