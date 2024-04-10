@@ -39,17 +39,7 @@ autocmd({"BufWritePre"}, {
     command = [[%s/\s\+$//e]],
 })
 
--- Set up border for LSP hover
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "single"
-})
-
--- Set up border for LSP signature help
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  -- Specify border style: single, double, rounded, solid, shadow
-  border = "single"
-})
-
+-- lsp
 autocmd('LspAttach', {
     group = WarrenGroup,
     callback = function(e)
@@ -78,6 +68,23 @@ autocmd('LspAttach', {
         vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
     end
 })
+
+-- Set up border for LSP diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "single"
+})
+
+-- Set up border for LSP hover
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "single"
+})
+
+-- Set up border for LSP signature help
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  -- Specify border style: single, double, rounded, solid, shadow
+  border = "single"
+})
+
 
 vim.o.background = "dark"
 vim.cmd([[colorscheme gruvbox]])
