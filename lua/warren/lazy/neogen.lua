@@ -15,9 +15,16 @@ return {
             neogen.generate({ type = "func" })
         end)
 
+        vim.keymap.set("n", "<leader>nF", function()
+            neogen.generate({ type = "file" })
+        end)
+
         vim.keymap.set("n", "<leader>nt", function()
             neogen.generate({ type = "type" })
         end)
 
+        vim.keymap.set("n", "<leader>nc", function()
+            neogen.generate({ type = "class" })
+        end)
     end,
 }
