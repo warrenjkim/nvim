@@ -3,7 +3,6 @@ return {
         "nvim-lua/plenary.nvim",
         name = "plenary"
     },
-    "nvim-treesitter/nvim-treesitter",
-
+    "nvim-treesitter/playground",
     "eandrju/cellular-automaton.nvim",
 }
