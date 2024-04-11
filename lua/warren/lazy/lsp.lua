@@ -37,7 +37,7 @@ return {
             },
         })
         require('mason').setup()
-        require('mason-lspconfig').setup {
+        require('mason-lspconfig').setup({
             ensure_installed = {
                 'clangd',
                 'jdtls',
@@ -50,7 +50,7 @@ return {
                     })
                 end,
             }
-        }
+        })
 
         local cmp_select = { behavior = cmp.SelectBehavior.Insert }
 

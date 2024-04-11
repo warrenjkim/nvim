@@ -69,11 +69,6 @@ autocmd('LspAttach', {
     end
 })
 
--- -- Set up border for LSP diagnostics
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.handlers.diagnostic, {
---   border = "single"
--- })
-
 -- Set up border for LSP hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "single"
