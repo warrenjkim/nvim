@@ -33,11 +33,12 @@ autocmd('TextYankPost', {
     end,
 })
 
-autocmd({"BufWritePre"}, {
+autocmd({ "BufWritePre" }, {
     group = WarrenGroup,
     pattern = "*",
     command = [[%s/\s\+$//e]],
 })
+
 
 -- lsp
 autocmd('LspAttach', {
@@ -71,13 +72,13 @@ autocmd('LspAttach', {
 
 -- Set up border for LSP hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "single"
+    border = "single"
 })
 
 -- Set up border for LSP signature help
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  -- Specify border style: single, double, rounded, solid, shadow
-  border = "single"
+    -- Specify border style: single, double, rounded, solid, shadow
+    border = "single"
 })
 
 

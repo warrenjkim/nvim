@@ -49,6 +49,11 @@ return {
                         capabilities = capabilities
                     })
                 end,
+                ['clangd'] = function()
+                    require('lspconfig').clangd.setup({
+                        capabilities = capabilities,
+                    })
+                end
             }
         })
 

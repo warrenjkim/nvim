@@ -17,6 +17,8 @@ return {
                 "dockerfile",
             },
 
+            ignore_install = { "tex" }, -- Exclude TeX files from auto-installation
+
             -- Install parsers synchronously (only applied to `ensure_installed`)
             sync_install = false,
 
