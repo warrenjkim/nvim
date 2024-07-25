@@ -1,8 +1,8 @@
 return {
-    {
-        "nvim-lua/plenary.nvim",
-        name = "plenary"
-    },
-    "nvim-treesitter/playground",
-    "eandrju/cellular-automaton.nvim",
+  {
+    'nvim-lua/plenary.nvim',
+    name = 'plenary'
+  },
+  { 'nvim-treesitter/playground' },
+  { 'folke/zen-mode.nvim' },
 }
