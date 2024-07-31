@@ -31,9 +31,8 @@ return {
       end,
     })
 
-
-    vim.keymap.set('n', 'gk', function() vim.cmd('Gdiffsplit') end)
-    vim.keymap.set('n', 'gl', '<cmd>diffget //2<CR>')
-    vim.keymap.set('n', 'gr', '<cmd>diffget //3<CR>')
+    vim.keymap.set('n', '<leader>gk', function() vim.cmd('Gdiffsplit') end)
+    vim.keymap.set('n', '<leader>gl', function() vim.cmd.Git('log') end)
+    vim.keymap.set('n', '<leader>gB', function() vim.cmd.Git('checkout') end)
   end
 }
