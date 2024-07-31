@@ -12,37 +12,42 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- greatest remap ever
+-- paste without saving highlight into register
 vim.keymap.set("x", "<leader>p", [["_dP]])
+-- delete without saving highlight into register
+vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
--- next greatest remap ever : asbjornHaland
 -- copy to system clipboard
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
-
--- This is going to get me cancelled
+-- lol
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
+-- disable :Ex map
 vim.keymap.set("n", "Q", "<nop>")
 
 -- formatting
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+
+-- quickfix list
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+
+--location list
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
+-- replace word under cursor
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+-- chmod
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
+-- nvim config
 vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.config/nvim<CR>");
-vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 
-vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd([[so]])
-end)
+vim.keymap.set("n", "<leader><leader>", function() vim.cmd([[so]]) end)
 
 
 -- tabs

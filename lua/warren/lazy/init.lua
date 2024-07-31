@@ -4,5 +4,4 @@ return {
     name = 'plenary'
   },
   { 'nvim-treesitter/playground' },
-  { 'folke/zen-mode.nvim' },
 }

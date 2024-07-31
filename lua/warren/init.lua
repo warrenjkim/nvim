@@ -48,6 +48,8 @@ autocmd('LspAttach', {
     local opts = { buffer = e.buf }
     -- go to definition
     vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts)
+    -- go to implementation
+    vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation() end, opts)
     -- floating description window
     vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
 

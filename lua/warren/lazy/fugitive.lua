@@ -2,6 +2,7 @@ return {
   'tpope/vim-fugitive',
 
   config = function()
+    -- open fugitive
     vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
 
     local Warren_Fugitive = vim.api.nvim_create_augroup('Warren_Fugitive', {})
@@ -11,7 +12,6 @@ return {
       group = Warren_Fugitive,
       pattern = '*',
       callback = function()
-        -- if not fugitive, return
         if vim.bo.ft ~= 'fugitive' then
           return
         end
@@ -22,9 +22,7 @@ return {
           remap = false
         }
 
-        vim.keymap.set('n', '<leader>P', function()
-          vim.cmd.Git('push')
-        end, opts)
+        vim.keymap.set('n', '<leader>P', function() vim.cmd.Git('push') end, opts)
 
         -- rebase always
         vim.keymap.set('n', '<leader>p', function()
@@ -34,7 +32,7 @@ return {
     })
 
 
-    vim.keymap.set('n', 'gf', function() vim.cmd('Gdiffsplit') end)
+    vim.keymap.set('n', 'gk', function() vim.cmd('Gdiffsplit') end)
     vim.keymap.set('n', 'gl', '<cmd>diffget //2<CR>')
     vim.keymap.set('n', 'gr', '<cmd>diffget //3<CR>')
   end
