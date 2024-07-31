@@ -52,9 +52,11 @@ autocmd('LspAttach', {
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
 
     -- find symbol in project
-    vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+    vim.keymap.set("n", "<leader>vws", function() require('telescope.builtin').lsp_workspace_symbols() end, opts)
+    -- find symbol in buffer
+    vim.keymap.set("n", "<leader>vds", function() require('telescope.builtin').lsp_document_symbols() end, opts)
     -- find references of a symbol
-    vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+    vim.keymap.set("n", "<leader>vrr", function() require('telescope.builtin').lsp_references() end, opts)
     -- rename a symbol
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
     -- signature help in insert mode

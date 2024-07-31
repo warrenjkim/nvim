@@ -30,9 +30,9 @@ return {
 
       notification = {
         window = {
-          normal_hl = 'Comment',           -- Base highlight group in the notification window
-          winblend = 0,                    -- Background color opacity in the notification window
-          border = 'single',               -- Border around the notification window
+          normal_hl = 'Comment', -- Base highlight group in the notification window
+          winblend = 0,          -- Background color opacity in the notification window
+          border = 'single',     -- Border around the notification window
         },
       },
     })
@@ -40,7 +40,6 @@ return {
     require('mason-lspconfig').setup({
       ensure_installed = {
         'clangd',
-        'jdtls',
         'lua_ls',
       },
       handlers = {
@@ -53,7 +52,20 @@ return {
           require('lspconfig').clangd.setup({
             capabilities = capabilities,
           })
-        end
+        end,
+        ["lua_ls"] = function()
+          local lspconfig = require("lspconfig")
+          lspconfig.lua_ls.setup {
+            capabilities = capabilities,
+            settings = {
+              Lua = {
+                diagnostics = {
+                  globals = { "vim", "it", "describe", "before_each", "after_each" },
+                }
+              }
+            }
+          }
+        end,
       }
     })
 
@@ -75,11 +87,11 @@ return {
 
       sources = cmp.config.sources(
         {
-          { name = 'nvim_lsp' },             -- default lsp
-          { name = 'luasnip' },              -- snippets
+          { name = 'nvim_lsp' }, -- default lsp
+          { name = 'luasnip' },  -- snippets
         },
         {
-          { name = 'buffer' },           -- other buffers
+          { name = 'buffer' }, -- other buffers
         }
       )
     })

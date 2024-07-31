@@ -1,6 +1,6 @@
 return {
     "tpope/vim-fugitive",
-    config = function() 
+    config = function()
         vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
         local Warren_Fugitive = vim.api.nvim_create_augroup("Warren_Fugitive", {})
@@ -30,6 +30,7 @@ return {
         })
 
 
+        vim.keymap.set("n", "gk", "<cmd>Gdiffsplit<CR>")
         vim.keymap.set("n", "gl", "<cmd>diffget //2<CR>")
         vim.keymap.set("n", "gr", "<cmd>diffget //3<CR>")
     end
