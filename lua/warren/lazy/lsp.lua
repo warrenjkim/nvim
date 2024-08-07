@@ -11,6 +11,7 @@ return {
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
     'j-hui/fidget.nvim',
+    'jose-elias-alvarez/null-ls.nvim',
   },
 
   config = function()
@@ -86,6 +87,23 @@ return {
         header = '',
         prefix = '',
       },
+    })
+
+    local null_ls = require("null-ls")
+    local sources = {
+      null_ls.builtins.formatting.yapf.with({
+        extra_args = { "--style", "{indent_width: 2}" }
+      }),
+    }
+
+    -- local null_ls = require("null-ls")
+    -- local sources = {
+    --   null_ls.builtins.formatting.black,
+    --   null_ls.builtins.formatting.isort,
+    -- }
+
+    null_ls.setup({
+      sources = sources,
     })
   end
 }
