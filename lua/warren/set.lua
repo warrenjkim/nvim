@@ -21,7 +21,7 @@ vim.opt.swapfile = false
 -- no backups
 vim.opt.backup = false
 -- persistent undo
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undodir = os.getenv("XDG_STATE_HOME") .. "/nvim/undodir"
 -- lets you undo changes even after closing a file
 vim.opt.undofile = true
 
