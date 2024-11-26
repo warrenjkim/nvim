@@ -58,3 +58,6 @@ vim.keymap.set("n", "<leader>2", ":tabnext 2<CR>", { silent = true })
 vim.keymap.set("n", "<leader>3", ":tabnext 3<CR>", { silent = true })
 vim.keymap.set("n", "<leader>4", ":tabnext 4<CR>", { silent = true })
 vim.keymap.set("n", "<leader>5", ":tabnext 5<CR>", { silent = true })
+
+-- open in Finder
+vim.keymap.set("n", "<leader>O", ":!open %<CR>", { silent = true })

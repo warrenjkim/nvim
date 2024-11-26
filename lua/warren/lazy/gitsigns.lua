@@ -51,6 +51,10 @@ return {
         row = 0,
         col = 1
       },
+
+      vim.keymap.set('n', '<leader>gB', function()
+        require('gitsigns').blame_line({ full = true })
+      end)
     })
   end
 }
