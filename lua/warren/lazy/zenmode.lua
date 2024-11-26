@@ -5,9 +5,17 @@ return {
     vim.keymap.set('n', '<leader>zz', function()
       zen_mode.setup({
         window = {
-          width = 90,
+          width = 120,
           options = {}
-        }
+        },
+        plugins = {
+          options = {
+            enabled = true,
+            ruler = true,
+            showcmd = true,
+          },
+        },
+        gitsigns = { enabled = true },
       })
       zen_mode.toggle()
       vim.wo.wrap = false
