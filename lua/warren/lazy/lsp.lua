@@ -37,6 +37,14 @@ return {
           }
         end,
 
+        ['clangd'] = function()
+          local lspconfig = require('lspconfig')
+          lspconfig.clangd.setup {
+            capabilities = capabilities,
+            cmd = { "clangd", "--clang-tidy", "--completion-style=detailed", "--fallback-style=Google" },
+          }
+        end,
+
         ['lua_ls'] = function()
           local lspconfig = require('lspconfig')
           lspconfig.lua_ls.setup {
@@ -91,6 +99,8 @@ return {
 
     local null_ls = require("null-ls")
     local sources = {
+      null_ls.builtins.formatting.prettier,
+      null_ls.builtins.formatting.stylelint,
       null_ls.builtins.formatting.yapf.with({
         extra_args = { "--style", "{indent_width: 2}" }
       }),
