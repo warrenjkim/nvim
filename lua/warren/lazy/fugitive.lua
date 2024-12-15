@@ -1,25 +1,21 @@
 return {
   'tpope/vim-fugitive',
   config = function()
-    -- Set default flags for rebase operations
-    vim.g.fugitive_rebase_args = '--committer-date-is-author-date --autostash'
+    -- Function to pull from specified branch
+    local function pull_from_branch(branch)
+      vim.cmd("Git fetch origin --all")
+      vim.fn.system("git rev-parse --verify origin/" .. branch)
+      if vim.v.shell_error == 0 then
+        vim.cmd("Git rebase origin/" .. branch .. " --committer-date-is-author-date --autostash")
+      else
+        print("Branch origin/" .. branch .. " does not exist")
+      end
+    end
 
     -- open fugitive
     vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
-
     local Warren_Fugitive = vim.api.nvim_create_augroup('Warren_Fugitive', {})
     local autocmd = vim.api.nvim_create_autocmd
-
-    -- Function to pull from main/master with fetch + rebase
-    local function pull_from_main()
-      vim.cmd('Git fetch origin')
-      vim.fn.system('git rev-parse --verify origin/main')
-      if vim.v.shell_error == 0 then
-        vim.cmd('Git rebase origin/main --committer-date-is-author-date --autostash')
-      else
-        vim.cmd('Git rebase origin/master --committer-date-is-author-date --autostash')
-      end
-    end
 
     autocmd('BufWinEnter', {
       group = Warren_Fugitive,
@@ -28,14 +24,19 @@ return {
         if vim.bo.ft ~= 'fugitive' then
           return
         end
-
         local bufnr = vim.api.nvim_get_current_buf()
         local opts = {
           buffer = bufnr,
-          remap = false
+          remap = true
         }
 
-        -- Existing mappings
+        -- ThePrimeagen's diff workflow
+        -- Setup diffs for staging
+        vim.keymap.set('n', 'gh', ':diffget //2<CR>', opts)    -- Get from target branch (left)
+        vim.keymap.set('n', 'gl', ':diffget //3<CR>', opts)    -- Get from merge branch (right)
+        vim.keymap.set('n', 'gu', '<cmd>diffupdate<CR>', opts) -- Update diff view
+
+        -- Custom push with confirmation and force push option
         vim.keymap.set("n", "P", function()
           local current_branch = vim.fn.system("git branch --show-current"):gsub("\n", "")
           vim.ui.input({
@@ -59,27 +60,43 @@ return {
               vim.cmd(string.format("Git push -u origin %s", branch))
             end
           end)
-        end, { buffer = bufnr, remap = true })
-
-
-        vim.keymap.set('n', '<leader>p', function()
-          vim.cmd('Git pull --rebase')
         end, opts)
 
-        -- ThePrimeagen's diff workflow
-        -- Setup diffs for staging
-        vim.keymap.set('n', 'gh', ':diffget //2<CR>', opts)
-        vim.keymap.set('n', 'gl', ':diffget //3<CR>', opts)
-        vim.keymap.set('n', 'gu', '<cmd>diffupdate<CR>', opts)
-      end
+        -- Pull with rebase and conflict handling
+        vim.keymap.set("n", "<leader>p", function()
+          local branch = vim.fn.system("git branch --show-current"):gsub("\n", "")
+          pull_from_branch(branch)
+
+          -- Check if rebase is in progress
+          local is_rebasing = vim.fn.system("git rev-parse --quiet --verify REBASE_HEAD"):gsub("\n", "") ~= ""
+
+          if is_rebasing then
+            vim.ui.input({
+              prompt = "Rebase conflict detected. Options:\n" ..
+                  "1: Abort rebase and stash changes\n" ..
+                  "2: Open status to resolve conflicts\n" ..
+                  "Choice (1/2): ",
+            }, function(input)
+              if input == "1" then
+                -- Save any changes that were auto-stashed
+                vim.cmd("Git stash")
+                -- Abort the rebase
+                vim.cmd("Git rebase --abort")
+              elseif input == "2" then
+                -- Open Git status to start resolving conflicts
+                vim.cmd("Git")
+              end
+            end)
+          end
+        end, opts)
+      end,
     })
 
-    -- ThePrimeagen's workflow for viewing changes
-    vim.keymap.set('n', '<leader>gj', ':diffget //3<CR>')
-    vim.keymap.set('n', '<leader>gf', ':diffget //2<CR>')
-    vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
-
-    -- New mapping for pulling from main/master
-    vim.keymap.set('n', '<leader>gm', pull_from_main)
+    -- Global mappings for ThePrimeagen's workflow
+    vim.keymap.set('n', '<leader>gj', ':diffget //3<CR>') -- Get changes from right side
+    vim.keymap.set('n', '<leader>gf', ':diffget //2<CR>') -- Get changes from left side
+    vim.keymap.set('n', '<leader>gk', function() vim.cmd('Gdiffsplit') end)
+    vim.keymap.set('n', '<leader>gl', function() vim.cmd.Git('log') end)
+    vim.keymap.set('n', '<leader>gm', function() pull_from_branch("main") end)
   end
 }
