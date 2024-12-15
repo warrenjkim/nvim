@@ -30,13 +30,6 @@ return {
           remap = false
         }
 
-        -- ThePrimeagen's diff workflow
-        -- Setup diffs for staging
-        vim.keymap.set('n', 'gh', ':diffget //2<CR>', opts)    -- Get from target branch (left)
-        vim.keymap.set('n', 'gl', ':diffget //3<CR>', opts)    -- Get from merge branch (right)
-        vim.keymap.set('n', 'gu', '<cmd>diffupdate<CR>', opts) -- Update diff view
-
-        -- Custom push with confirmation and force push option
         vim.keymap.set("n", "P", function()
           local current_branch = vim.fn.system("git branch --show-current"):gsub("\n", "")
           vim.ui.input({
@@ -62,12 +55,10 @@ return {
           end)
         end, { buffer = bufnr, remap = true })
 
-        -- Pull with rebase and conflict handling
         vim.keymap.set("n", "<leader>p", function()
           local branch = vim.fn.system("git branch --show-current"):gsub("\n", "")
           pull_from_branch(branch)
 
-          -- Check if rebase is in progress
           local is_rebasing = vim.fn.system("git rev-parse --quiet --verify REBASE_HEAD"):gsub("\n", "") ~= ""
 
           if is_rebasing then
@@ -78,12 +69,9 @@ return {
                   "Choice (1/2): ",
             }, function(input)
               if input == "1" then
-                -- Save any changes that were auto-stashed
                 vim.cmd("Git stash")
-                -- Abort the rebase
                 vim.cmd("Git rebase --abort")
               elseif input == "2" then
-                -- Open Git status to start resolving conflicts
                 vim.cmd("Git")
               end
             end)
@@ -92,8 +80,19 @@ return {
       end,
     })
 
-    vim.keymap.set('n', '<leader>gH', ':diffget //2<CR>') -- Get changes from left side
-    vim.keymap.set('n', '<leader>gL', ':diffget //3<CR>') -- Get changes from right side
+    autocmd('DiffMode', {
+      group = Warren_Fugitive,
+      pattern = 'diff',
+      callback = function()
+        if vim.wo.diff then
+          local opts = { buffer = true, remap = false }
+          vim.keymap.set('n', 'gh', function() vim.cmd('diffget //2') end, opts)
+          vim.keymap.set('n', 'gl', function() vim.cmd('diffget //3') end, opts)
+          vim.keymap.set('n', 'gu', function() vim.cmd('diffupdate') end, opts)
+        end
+      end
+    })
+
     vim.keymap.set('n', '<leader>gk', function() vim.cmd('Gdiffsplit') end)
     vim.keymap.set('n', '<leader>gl', function() vim.cmd.Git('log') end)
     vim.keymap.set('n', '<leader>gm', function()
