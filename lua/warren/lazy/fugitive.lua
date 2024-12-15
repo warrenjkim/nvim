@@ -27,7 +27,7 @@ return {
         local bufnr = vim.api.nvim_get_current_buf()
         local opts = {
           buffer = bufnr,
-          remap = true
+          remap = false
         }
 
         -- ThePrimeagen's diff workflow
@@ -60,7 +60,7 @@ return {
               vim.cmd(string.format("Git push -u origin %s", branch))
             end
           end)
-        end, opts)
+        end, { buffer = bufnr, remap = true })
 
         -- Pull with rebase and conflict handling
         vim.keymap.set("n", "<leader>p", function()
@@ -92,11 +92,17 @@ return {
       end,
     })
 
-    -- Global mappings for ThePrimeagen's workflow
-    vim.keymap.set('n', '<leader>gj', ':diffget //3<CR>') -- Get changes from right side
-    vim.keymap.set('n', '<leader>gf', ':diffget //2<CR>') -- Get changes from left side
+    vim.keymap.set('n', '<leader>gH', ':diffget //2<CR>') -- Get changes from left side
+    vim.keymap.set('n', '<leader>gL', ':diffget //3<CR>') -- Get changes from right side
     vim.keymap.set('n', '<leader>gk', function() vim.cmd('Gdiffsplit') end)
     vim.keymap.set('n', '<leader>gl', function() vim.cmd.Git('log') end)
-    vim.keymap.set('n', '<leader>gm', function() pull_from_branch("main") end)
+    vim.keymap.set('n', '<leader>gm', function()
+      vim.fn.system("git rev-parse --verify origin/main")
+      if vim.v.shell_error == 0 then
+        pull_from_branch("main")
+      else
+        pull_from_branch("master")
+      end
+    end)
   end
 }
