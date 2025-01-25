@@ -80,16 +80,14 @@ return {
       end,
     })
 
-    autocmd('DiffMode', {
+    autocmd('FileType', {
       group = Warren_Fugitive,
-      pattern = 'diff',
+      pattern = { 'fugitive', 'fugitiveblame' },
       callback = function()
-        if vim.wo.diff then
-          local opts = { buffer = true, remap = false }
-          vim.keymap.set('n', 'gh', function() vim.cmd('diffget //2') end, opts)
-          vim.keymap.set('n', 'gl', function() vim.cmd('diffget //3') end, opts)
-          vim.keymap.set('n', 'gu', function() vim.cmd('diffupdate') end, opts)
-        end
+        local opts = { buffer = true, remap = false }
+        vim.keymap.set('n', 'gh', function() vim.cmd('diffget //2') end, opts)
+        vim.keymap.set('n', 'gl', function() vim.cmd('diffget //3') end, opts)
+        vim.keymap.set('n', 'gu', function() vim.cmd('diffupdate') end, opts)
       end
     })
 
