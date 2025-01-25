@@ -3,7 +3,7 @@ return {
   config = function()
     -- Function to pull from specified branch
     local function pull_from_branch(branch)
-      vim.cmd("Git fetch origin --all")
+      vim.cmd("Git fetch origin")
       vim.fn.system("git rev-parse --verify origin/" .. branch)
       if vim.v.shell_error == 0 then
         vim.cmd("Git rebase origin/" .. branch .. " --committer-date-is-author-date --autostash")
@@ -93,7 +93,7 @@ return {
 
     vim.keymap.set('n', '<leader>gk', function() vim.cmd('Gdiffsplit') end)
     vim.keymap.set('n', '<leader>gl', function() vim.cmd.Git('log') end)
-    vim.keymap.set('n', '<leader>gm', function()
+    vim.keymap.set('n', '<leader>gpm', function()
       vim.fn.system("git rev-parse --verify origin/main")
       if vim.v.shell_error == 0 then
         pull_from_branch("main")
