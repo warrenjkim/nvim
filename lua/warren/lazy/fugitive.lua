@@ -30,19 +30,19 @@ return {
           remap = false
         }
 
-        vim.keymap.set("n", "P", function()
+        vim.keymap.set("n", "<leader>P", function()
           local current_branch = vim.fn.system("git branch --show-current"):gsub("\n", "")
           vim.ui.input({
             prompt = string.format("Push to (default origin/%s): ", current_branch),
           }, function(input)
-            -- Use input branch or fallback to current branch if empty
+            if input == nil then return end
             local branch = (input and input ~= "") and input or current_branch
-            -- Try dry-run with selected branch
             vim.fn.system(string.format("git push -u origin %s --dry-run", branch))
             if vim.v.shell_error ~= 0 then
               vim.ui.input({
                 prompt = "Push failed. Force push? (y/N): ",
               }, function(force_input)
+                if force_input == nil then return end
                 if force_input and force_input:lower() == "y" then
                   vim.cmd(string.format("Git push --force-with-lease origin %s", branch))
                 else
@@ -53,7 +53,7 @@ return {
               vim.cmd(string.format("Git push -u origin %s", branch))
             end
           end)
-        end, { buffer = bufnr, remap = true })
+        end, opts)
 
         vim.keymap.set("n", "<leader>p", function()
           local branch = vim.fn.system("git branch --show-current"):gsub("\n", "")
