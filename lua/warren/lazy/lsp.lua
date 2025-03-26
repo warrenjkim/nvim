@@ -11,9 +11,7 @@ return {
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
     'j-hui/fidget.nvim',
-    'jose-elias-alvarez/null-ls.nvim',
   },
-
   config = function()
     local cmp = require('cmp')
     local cmp_lsp = require('cmp_nvim_lsp')
@@ -36,7 +34,6 @@ return {
             capabilities = capabilities
           }
         end,
-
         ['lua_ls'] = function()
           local lspconfig = require('lspconfig')
           lspconfig.lua_ls.setup {
@@ -55,7 +52,6 @@ return {
     })
 
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
     cmp.setup({
       snippet = {
         expand = function(args)
@@ -78,7 +74,6 @@ return {
     })
 
     vim.diagnostic.config({
-      -- update_in_insert = true,
       float = {
         focusable = false,
         style = 'minimal',
@@ -89,21 +84,12 @@ return {
       },
     })
 
-    local null_ls = require("null-ls")
-    local sources = {
-      null_ls.builtins.formatting.yapf.with({
-        extra_args = { "--style", "{indent_width: 2}" }
-      }),
-    }
-
-    -- local null_ls = require("null-ls")
-    -- local sources = {
-    --   null_ls.builtins.formatting.black,
-    --   null_ls.builtins.formatting.isort,
-    -- }
-
-    null_ls.setup({
-      sources = sources,
-    })
+    -- Add format on save
+    -- vim.api.nvim_create_autocmd("BufWritePre", {
+    --   pattern = { "*.js", "*.jsx", "*.ts", "*.tsx" },
+    --   callback = function()
+    --     vim.lsp.buf.format()
+    --   end,
+    -- })
   end
 }

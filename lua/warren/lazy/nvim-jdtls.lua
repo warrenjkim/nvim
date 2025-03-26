@@ -3,7 +3,7 @@ return {
   ft = { "java" },
   config = function()
     local home = vim.fn.expand("~")
-    local jdtls_home = "/opt/homebrew/Cellar/jdtls/1.41.0/libexec"
+    local jdtls_home = "/opt/homebrew/Cellar/jdtls/1.44.0/libexec"
     local root_dir = require('jdtls.setup').find_root({ '.git', 'mvnw', 'gradlew' })
     local workspace = home .. "/work/workspace/platform"
     local proto_dir = home .. "/work/platform/shared/proto/"

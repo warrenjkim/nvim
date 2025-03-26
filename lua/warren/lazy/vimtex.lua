@@ -20,7 +20,7 @@ return {
       -- want another compiler backend, you can change it as follows. The list of
       -- supported backends and further explanation is provided in the documentation,
       -- see ":help vimtex-compiler".
-      vim.g.vimtex_compiler_method = "latexmk"
+      vim.g.vimtex_compiler_method = "pdflatex"
 
       -- Most VimTeX mappings rely on localleader and this can be changed with the
       -- following line. The default is usually fine and is the symbol "\".

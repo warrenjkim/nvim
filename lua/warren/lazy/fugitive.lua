@@ -1,5 +1,6 @@
 return {
   'tpope/vim-fugitive',
+  dependencies = { "tpope/vim-rhubarb" },
 
   config = function()
     -- open fugitive
@@ -26,12 +27,17 @@ return {
 
         -- rebase always
         vim.keymap.set('n', '<leader>p', function()
-          vim.cmd.Git({'pull',  '--rebase'})
+          vim.cmd.Git({ 'pull', '--rebase' })
         end, opts)
       end,
     })
 
     vim.keymap.set('n', '<leader>gk', function() vim.cmd('Gdiffsplit') end)
     vim.keymap.set('n', '<leader>gl', function() vim.cmd.Git('log') end)
+
+    -- Use :GBrowse to open current line in GitHub
+    vim.keymap.set("n", "<leader>gb", ":GBrowse<CR>")
+    -- Also works in visual mode to open a range of lines
+    vim.keymap.set("v", "<leader>gb", ":GBrowse<CR>")
   end
 }
