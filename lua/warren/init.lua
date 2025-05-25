@@ -40,7 +40,6 @@ autocmd({ 'BufWritePre' }, {
   command = [[%s/\s\+$//e]],
 })
 
-
 -- lsp
 autocmd('LspAttach', {
   group = WarrenGroup,
@@ -51,7 +50,7 @@ autocmd('LspAttach', {
     -- go to implementation
     vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation() end, opts)
     -- floating description window
-    vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
+    vim.keymap.set('n', 'K', function() vim.lsp.buf.hover({ border = 'rounded' }) end, opts)
 
     -- find symbol in project
     vim.keymap.set('n', '<leader>vws', function() vim.lsp.buf.workspace_symbol() end, opts)
@@ -60,7 +59,7 @@ autocmd('LspAttach', {
     -- rename a symbol
     vim.keymap.set('n', '<leader>vrn', function() vim.lsp.buf.rename() end, opts)
     -- signature help in insert mode
-    vim.keymap.set('i', '<C-h>', function() vim.lsp.buf.signature_help() end, opts)
+    vim.keymap.set('i', '<C-h>', function() vim.lsp.buf.signature_help({ border = 'rounded' }) end, opts)
 
     -- open diagnostics
     vim.keymap.set('n', '<leader>vd', function() vim.diagnostic.open_float() end, opts)
@@ -73,23 +72,12 @@ autocmd('LspAttach', {
   end
 })
 
--- Set up border for LSP hover
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'single'
-})
-
--- Set up border for LSP signature help
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  -- Specify border style: single, double, rounded, solid, shadow
-  border = 'single'
-})
-
 -- fold
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99
 
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.ddl",
   callback = function()
     vim.bo.filetype = "sql"

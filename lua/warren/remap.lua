@@ -15,10 +15,10 @@ vim.keymap.set("n", "N", "Nzzzv")
 -- paste without saving highlight into register
 vim.keymap.set("x", "<leader>p", [["_dP]])
 -- delete without saving highlight into register
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 -- copy to system clipboard
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 -- lol
@@ -61,3 +61,11 @@ vim.keymap.set("n", "<leader>5", ":tabnext 5<CR>", { silent = true })
 
 -- open in Finder
 vim.keymap.set("n", "<leader>O", ":!open %<CR>", { silent = true })
+
+-- toggle inlay hints
+vim.keymap.set("n", "<leader>h", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+  vim.lsp.inlay_hint.enable(not is_enabled, { bufnr = bufnr })
+  vim.notify("inlay hints " .. (not is_enabled and "enabled" or "disabled"), vim.log.levels.INFO)
+end, { silent = true, desc = "Toggle inlay hints" })

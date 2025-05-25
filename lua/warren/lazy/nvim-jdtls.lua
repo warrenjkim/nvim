@@ -3,10 +3,10 @@ return {
   ft = { "java" },
   config = function()
     local home = vim.fn.expand("~")
-    local jdtls_home = "/opt/homebrew/Cellar/jdtls/1.44.0/libexec"
+    local jdtls_home = "/opt/homebrew/Cellar/jdtls/1.46.1/libexec"
     local root_dir = require('jdtls.setup').find_root({ '.git', 'mvnw', 'gradlew' })
     local workspace = home .. "/work/workspace/platform"
-    local proto_dir = home .. "/work/platform/shared/proto/"
+    local proto_dir = home .. "/work/repos/platform/shared/proto/"
 
     local cmd = {
       "java",
@@ -17,7 +17,7 @@ return {
       "-Dlog.level=ALL",
       "-Xmx1g",
       "--add-modules=ALL-SYSTEM",
-      "-jar", jdtls_home .. "/plugins/org.eclipse.equinox.launcher_1.6.900.v20240613-2009.jar",
+      "-jar", jdtls_home .. "/plugins/org.eclipse.equinox.launcher_1.7.0.v20250331-1702.jar",
       "-configuration", jdtls_home .. "/config_mac_arm",
       "-data", workspace,
     }
@@ -33,6 +33,11 @@ return {
             },
             resourceFilters = {
               "client", "server", "test", "!node_modules", "!**/.metadata", "!**/node_modules", "!**/*.log"
+            }
+          },
+          inlayHints = {
+            parameterNames = {
+              enabled = "all"
             }
           }
         }
