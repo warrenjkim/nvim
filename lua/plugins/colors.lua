@@ -2,7 +2,7 @@ return {
     {
         "ellisonleao/gruvbox.nvim",
         name = "gruvbox",
-        priority = 1000 ,
+        priority = 1000,
         config = {
             terminal_colors = true,
             undercurl = true,
@@ -27,5 +27,5 @@ return {
             dim_inactive = false,
             transparent_mode = true,
         }
-    };
+    },
 }
