@@ -1,27 +1,23 @@
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable",
-        lazypath,
-    })
-end
-vim.opt.rtp:prepend(lazypath)
-
 require("config.options")
 require("config.remap")
 require("config.ui")
 
-require("lazy").setup("plugins", {
-    change_detection = {
-        notify = false,
-    },
+vim.pack.add({
+  -- colors
+  { src = "https://github.com/ellisonleao/gruvbox.nvim",      { load = true } },
+
+  -- lsp
+  { src = "https://github.com/neovim/nvim-lspconfig",         { load = true } },
+
+  -- telescope
+  { src = "https://github.com/nvim-lua/plenary.nvim",         { load = true } },
+  { src = "https://github.com/nvim-telescope/telescope.nvim", { load = true } },
+
 })
 
-vim.o.background = "dark"
-vim.cmd([[ colorscheme gruvbox ]])
+require("plugins.colors")
+require("plugins.lsp")
+
+-- Use it
+vim.keymap.set('n', '<leader>pc', require("config.utils").clean_unused_plugins)
