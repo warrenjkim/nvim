@@ -1,4 +1,5 @@
-vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+-- ---@diagnostic disable-next-line: param-type-mismatch
+vim.api.nvim_create_autocmd("TextYankPost", {
   group = vim.api.nvim_create_augroup("HighlightYank", {}),
   pattern = "*",
   callback = function()
@@ -9,13 +10,14 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   end
 })
 
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+vim.api.nvim_create_autocmd("BufWritePre", {
   group = vim.api.nvim_create_augroup("RemoveTrailingWhitespace", {}),
   pattern = "*",
   command = [[%s/\s\+$//e]]
 })
 
-vim.api.nvim_create_autocmd({ "VimResized" }, {
+-- ---@diagnostic disable-next-line: param-type-mismatch
+vim.api.nvim_create_autocmd("VimResized", {
   group = vim.api.nvim_create_augroup("ResizeSplits", {}),
   callback = function() vim.cmd("tabdo wincmd =") end
 })
