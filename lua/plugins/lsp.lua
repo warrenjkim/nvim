@@ -11,8 +11,6 @@ end
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("Lsp", { clear = true }),
   callback = function(args)
-    vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { buffer = args.buf, desc = "format" })
-
     -- goto
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = args.buf, desc = "go to definition" })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = args.buf, desc = "go to declaration" })
@@ -57,4 +55,56 @@ require("lspconfig").lua_ls.setup({
   }
 })
 
-require("lspconfig").clangd.setup({})
+require("lspconfig").clangd.setup({
+  cmd = {
+    "clangd",
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=iwyu",
+    "--completion-style=detailed",
+    "--function-arg-placeholders",
+    "--fallback-style=google",
+    "--compile-commands-dir=.",
+    "--query-driver=**",
+  },
+  init_options = {
+    usePlaceholders = true,
+    completeUnimported = true,
+    clangdFileStatus = true,
+  },
+  filetypes = { "c", "cpp", "proto" },
+  root_dir = require("lspconfig.util").root_pattern(
+    "compile_commands.json",
+    "compile_flags.txt",
+    ".clangd",
+    ".git",
+    "Makefile",
+    "CMakeLists.txt",
+    "meson.build",
+    "BUILD",
+    "WORKSPACE"
+  ),
+  capabilities = vim.lsp.protocol.make_client_capabilities(),
+  on_attach = function()
+    vim.api.nvim_create_autocmd("BufWritePost", {
+      pattern = { "BUILD", "*.BUILD", "WORKSPACE", "*.bzl" },
+      callback = function()
+        vim.fn.jobstart("bazel run @hedron_compile_commands//:refresh_all", {
+          on_exit = function(_, exit_code)
+            if exit_code == 0 then
+              vim.schedule(function()
+                vim.cmd("LspRestart clangd")
+                vim.notify("refreshed compile_commands.json", vim.log.levels.INFO)
+              end)
+            end
+          end
+        })
+      end,
+      group = vim.api.nvim_create_augroup("ClangdCompileCommands", { clear = true })
+    })
+  end
+})
+
+require("lspconfig").bazelrc_lsp.setup({})
+
+require("lspconfig").starpls.setup({})
