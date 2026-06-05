@@ -30,6 +30,9 @@ vim.pack.add({
 
   -- oil
   { src = "https://github.com/stevearc/oil.nvim",                       { load = true } },
+
+  -- whitespace
+  { src = "https://github.com/ntpeters/vim-better-whitespace",          { load = true } }
 })
 
 require("plugins.colors")

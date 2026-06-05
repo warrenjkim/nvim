@@ -108,3 +108,5 @@ require("lspconfig").clangd.setup({
 require("lspconfig").bazelrc_lsp.setup({})
 
 require("lspconfig").starpls.setup({})
+
+require("lspconfig").gopls.setup({})

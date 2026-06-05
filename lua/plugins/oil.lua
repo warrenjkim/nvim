@@ -3,6 +3,26 @@ require("oil").setup({
   delete_to_trash = false,
   view_options = {
     show_hidden = true,
+    is_hidden_file = function(name, _)
+      local hide = {
+        -- "^bazel%-",
+        -- "^MODULE%.bazel%.lock$",
+        -- "^compile_commands%.json$",
+        -- "^%.bazel",
+        -- "^%.clang%-format$",
+        -- "^%.gitignore$",
+        -- "^%.cache$",
+        -- "^external$",
+      }
+      for _, pat in ipairs(hide) do
+        if name:match(pat) then return true end
+      end
+      return false
+    end,
+  },
+  keymaps = {
+    ["<C-p>"] = false,
+    ["<leader>h"] = "actions.toggle_hidden",
   },
 })
 

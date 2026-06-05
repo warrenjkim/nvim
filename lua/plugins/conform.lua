@@ -5,10 +5,14 @@ require("conform").setup({
     proto = { "clang-format" },
     bzl   = { "buildifier" },
     bazel = { "buildifier" },
+    sql   = { "sql_formatter" },
   },
   formatters = {
     ["clang-format"] = {
       prepend_args = { "--style=file", "--fallback-style=Google" },
+    },
+    ["sql_formatter"] = {
+      args = { "--language", "sqlite" },
     },
   },
 })
