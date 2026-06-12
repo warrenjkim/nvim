@@ -17,6 +17,7 @@ vim.pack.add({
 
   -- git
   { src = "https://github.com/tpope/vim-fugitive",                      { load = true } },
+  { src = "https://github.com/tpope/vim-rhubarb",                       { load = true } },
   { src = "https://github.com/lewis6991/gitsigns.nvim",                 { load = true } },
 
   -- lualine

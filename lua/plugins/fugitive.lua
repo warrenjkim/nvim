@@ -1,4 +1,6 @@
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+vim.keymap.set('n', '<leader>ll', ':GBrowse<CR>')
+vim.keymap.set('v', '<leader>ll', ":'<,'>GBrowse<CR>")
 
 vim.api.nvim_create_autocmd("BufWinEnter", {
   group = vim.api.nvim_create_augroup("Fugitive", {}),
